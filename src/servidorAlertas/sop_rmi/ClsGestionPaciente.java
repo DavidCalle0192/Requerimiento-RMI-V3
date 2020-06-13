@@ -19,6 +19,7 @@ import servidorAlertas.dto.HistorialDTO;
 import servidorAlertas.dto.IndicadorDTO;
 import servidorAlertas.dto.UsuarioDTO;
 import servidorAlertas.utilidades.UtilidadesRegistroC;
+import servidorAlertas.vistas.VistaLogAlertas;
 import servidorNotificaciones.dto.AlertaDTO;
 import servidorNotificaciones.sop_rmi.NotificacionesInt;
 
@@ -31,66 +32,69 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
     private ArrayList<UsuarioDTO> pacientes;
     private NotificacionesInt objRefRemNotificacion;
     private int MAX_PACIENTES = -1;
+    private VistaLogAlertas guiAlertas;
 
     public ClsGestionPaciente() throws RemoteException {
         super();
         this.pacientes = new ArrayList<UsuarioDTO>();
+        guiAlertas = new VistaLogAlertas();
+        guiAlertas.setVisible(true);
     }
     
     @Override
     public synchronized String registrarPaciente(UsuarioDTO objPaciente) throws RemoteException {
-        System.out.println("Ejecutando registrarPaciente...");
-        
+        log("Ejecutando registrarPaciente...");
         String respuesta = "";
     
             if(!pacienteRegistrado(objPaciente)){
             if(pacientes.size()<MAX_PACIENTES){
                 if(pacientes.add(objPaciente)){
-                    System.out.println("Paciente nuevo:");
-                    System.out.println("Nombre:"+objPaciente.getNombres()+" "+objPaciente.getApellidos());
-                    System.out.println("Identificacion: "+objPaciente.getTipo_id()+" "+objPaciente.getId());
-                    System.out.println("Direccion:"+objPaciente.getDireccion());
-                    System.out.println("Creando historial...");
+                    log("Paciente nuevo:");
+                    log("Nombre:"+objPaciente.getNombres()+" "+objPaciente.getApellidos());
+                    log("Identificacion: "+objPaciente.getTipo_id()+" "+objPaciente.getId());
+                    log("Direccion:"+objPaciente.getDireccion());
+                    log("Creando historial...");
                     crearHistorialPaciente(objPaciente.getId());
                     respuesta = "registrado";
                 }else{
                     respuesta = "Error";
+                    log("Error al registrar paciente");
                 }
             }else{
                 respuesta = "Limite_superado";
+                log("No se pueden almacenar mas pacientes.");
             }
         }else{
             respuesta = "id_existente";
+            log("El  paciente con id "+objPaciente.getId()+" ya esta registrado");
         }
-        System.out.println(respuesta);
-        
-        
+        log(respuesta);
         return respuesta;
     }
     
     private void crearHistorialPaciente(int idPaciente){
         if(!HistorialAlertaDAO.existeHistorial(idPaciente)){    
-            if(HistorialAlertaDAO.crearHistorial(idPaciente))
-                System.out.println("Se creo un nuevo historial de alertas para el paciente");
-            else
-                System.out.println("Hubo un error al crear historial de alertas para el paciente");
+            if(HistorialAlertaDAO.crearHistorial(idPaciente)){
+                log("Se creo un nuevo historial de alertas para el paciente");
+            }else{
+                log("Hubo un error al crear historial de alertas para el paciente");
+            }
         }else{
-            System.out.println("El paciente ya tiene un historial");
+            log("El paciente ya tiene un historial");
         }
     }
 
     @Override
     public String enviarIndicadores(IndicadorDTO objIndicador){
-        System.out.println("Ejecutando enviarIndicadores...");
-        
+        log("Ejecutando enviarIndicadores...");
         String respuesta = "";
         
         int puntuacion = obtenerPuntuacion(objIndicador);
-        System.out.println("Indicadores del paciente con id "+objIndicador.getIdPaciente());
-        System.out.println("FC:"+objIndicador.getFrecuenciaCardiaca());
-        System.out.println("FR:"+objIndicador.getFrecuenciaRespiratoria());
-        System.out.println("ToC:"+objIndicador.getTemperatura());
-        System.out.println("Puntuacion:"+puntuacion);
+        log("Indicadores del paciente con id "+objIndicador.getIdPaciente());
+        log("FC:"+objIndicador.getFrecuenciaCardiaca());
+        log("FR:"+objIndicador.getFrecuenciaRespiratoria());
+        log("ToC:"+objIndicador.getTemperatura());
+        log("Puntuacion:"+puntuacion);
         
         if(puntuacion > 1){
             HistorialDTO objHistorial = new HistorialDTO(LocalDate.now(), LocalTime.now(), puntuacion);
@@ -99,7 +103,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
             //Si el paciente no tiene un historial se procede a crearlo
             if(!HistorialAlertaDAO.existeHistorial(objIndicador.getIdPaciente()))HistorialAlertaDAO.crearHistorial(objIndicador.getIdPaciente());
             
-            System.out.println("Enviando y almacenando alerta del paciente "+objIndicador.getIdPaciente()+"...");
+            log("Enviando y almacenando alerta del paciente "+objIndicador.getIdPaciente()+"...");
             Stack<HistorialDTO> historial = HistorialAlertaDAO.obtenerUlt5Reg(objIndicador.getIdPaciente());
             HistorialAlertaDAO.agregarHistorial(objHistorial, objIndicador.getIdPaciente());
 
@@ -121,9 +125,9 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
                 Logger.getLogger(ClsGestionPaciente.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            System.out.println("Alerta almacenada y enviada");
+            log("Alerta almacenada y enviada");
         }else{
-            System.out.println("Continuar monitorización del paciente "+objIndicador.getIdPaciente());
+            log("Continuar monitorización del paciente "+objIndicador.getIdPaciente());
             respuesta = "Continuar monitorización ";
         }
         
@@ -149,7 +153,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public synchronized boolean establecerMaxPacientes(int num) throws RemoteException {
-        System.out.println("Ejecutando establecerMaxPacientes...");
+        log("Ejecutando establecerMaxPacientes...");
         if(num>=1 && num<=5){
             this.MAX_PACIENTES = num;
             return true;
@@ -161,7 +165,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public int obtenerMaxPacientes() throws RemoteException {
-        System.out.println("Ejecutando obtenerMaxPacientes...");
+        log("Ejecutando obtenerMaxPacientes...");
         return this.MAX_PACIENTES;
     }
     
@@ -198,19 +202,21 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
         return objPaciente;
     }
     
-        public void consultarReferenciaRemotaDeNotificacion(String dir_Ip, int numPuerto)
+    public void consultarReferenciaRemotaDeNotificacion(String dir_Ip, int numPuerto)
     {
         System.out.println(" ");
-        System.out.println("Desde consultarReferenciaRemotaDeNotificacion()...");
+        log("Desde consultarReferenciaRemotaDeNotificacion()...");
         objRefRemNotificacion = (NotificacionesInt) UtilidadesRegistroC.obtenerObjRemoto(dir_Ip, numPuerto, "ObjetoRemotoNotificaciones");
     }
 
     @Override
     public int numeroRegistros() throws RemoteException {
-        
+        log("Ejecutando numeroRegistros...");
         return pacientes.size();
     }
-        
-        
     
+    private void log(String log){
+        System.out.println(log);
+        guiAlertas.agregarLog(log);
+    }
 }

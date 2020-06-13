@@ -8,10 +8,6 @@ package servidorNotificaciones.sop_rmi;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Stack;
-import servidorAlertas.dto.HistorialDTO;
-import servidorAlertas.dto.IndicadorDTO;
-import servidorAlertas.dto.UsuarioDTO;
 import servidorNotificaciones.dto.AlertaDTO;
 import servidorNotificaciones.vistas.VistaNotificaciones;
 
