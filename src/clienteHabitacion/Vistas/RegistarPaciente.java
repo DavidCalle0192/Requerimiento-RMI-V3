@@ -35,6 +35,15 @@ public class RegistarPaciente extends javax.swing.JFrame {
         rbtn_cc.setSelected(true);
     }
 
+    public boolean verificar(int n, String nombres, String apellidos, String direccion){
+            //String id = txf_id.getText();//Validar tipo de dato
+            
+            if(n==-1 || nombres.equals("") || apellidos.equals("") || direccion.equals("")){
+                return false;
+            }else{
+                return true;
+            }
+    }
     public RegistarPaciente() {
         initComponents();
     }
@@ -172,7 +181,14 @@ public class RegistarPaciente extends javax.swing.JFrame {
         //String mensaje = "El tipo de ID seleccionado es: ";
         try {
             // TODO add your handling code here:
-            int id = Integer.parseInt(txf_id.getText());
+            int id;
+            if(!txf_id.getText().equals("")){
+                id = Integer.parseInt(txf_id.getText());
+            }else{
+                id=-1;//Con el valor de -1 se especifica al sistema que el campo esta vacio
+                //JOptionPane.showMessageDialog(null, "holis");
+            }
+            
             //String tipoId = txf_tipoId.getText();
             String tipoId = " ";
             if (rbtn_cc.isSelected()) {
@@ -187,15 +203,21 @@ public class RegistarPaciente extends javax.swing.JFrame {
             //lb_menajeTipoId.setText(mensaje+tipoId);
             String nombres = txf_nombres.getText();
             String apellidos = txf_apellidos.getText();
-            String direccion = txf_apellidos.getText();
-            if (cm.existeId(id, objRemoto)) {
-                JOptionPane.showMessageDialog(null, "El id ya existe");
-            } else {
+            String direccion = txf_direccion.getText();
+            
+            
+            if(!verificar(id,nombres,apellidos,direccion)){
+                JOptionPane.showMessageDialog(null,"Por favor diligenciar todos los campos");
+                
+            }else{
                 UsuarioDTO paciente = new UsuarioDTO(id, tipoId, nombres, apellidos, direccion);
-                objRemoto.registrarPaciente(paciente);
-                ArrayList<UsuarioDTO> array = objRemoto.listarPacientes();
-                JOptionPane.showMessageDialog(null, "Paciente registrado con éxito ");
-                this.setVisible(false);
+                String respuesta = objRemoto.registrarPaciente(paciente);
+                if(respuesta.equals("id_existente")){
+                JOptionPane.showMessageDialog(null, "El id ya existe");
+            }else if(respuesta.equals("Limite_superado")){
+                JOptionPane.showMessageDialog(null, "Se ha superado el limite de usuarios registrados.");
+            }else if(respuesta.equals("registrado")){
+                JOptionPane.showMessageDialog(null, "Se ha registrado el paciente con exito.");
                 MenuMedico menu;
                 if (rol == 1) {
                     menu = new MenuMedico(objRemoto);
@@ -205,8 +227,13 @@ public class RegistarPaciente extends javax.swing.JFrame {
                 menu.objusuario = paciente;
                 menu.darVisibilidad();
                 menu.setVisible(true);
+                this.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error.");
             }
-
+            }
+            
+          
         } catch (RemoteException ex) {
             Logger.getLogger(RegistarPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }
