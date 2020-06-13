@@ -245,7 +245,8 @@ public class MenuMedico extends javax.swing.JFrame {
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        //this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_registrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarPacienteActionPerformed
