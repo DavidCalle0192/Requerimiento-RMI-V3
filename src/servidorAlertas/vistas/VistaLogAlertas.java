@@ -33,6 +33,11 @@ public class VistaLogAlertas extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         txaLog.setColumns(20);
         txaLog.setRows(5);
@@ -62,9 +67,10 @@ public class VistaLogAlertas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLimpiar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(btnLimpiar)
+                .addContainerGap())
         );
 
         pack();
@@ -73,6 +79,10 @@ public class VistaLogAlertas extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txaLog.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -100,13 +110,10 @@ public class VistaLogAlertas extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(VistaLogAlertas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaLogAlertas().setVisible(true);
-            }
-        });
+    }
+    
+    public void agregarLog(String mensaje){
+        txaLog.append(mensaje+"\n");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
