@@ -38,22 +38,7 @@ public class ClienteMedico {
         return objRemoto;
     }*/
     
-     public boolean validarPacientesExistentes() throws RemoteException{
-            if(objRemoto.listarPacientes().size()==0){
-                return false;
-            }else{
-                return true;
-            }
-        }
      
-     public boolean existeId(int id, GestionPacienteInt objRemoto) throws RemoteException{
-         for(int i=0;i<objRemoto.listarPacientes().size();i++){
-             if(objRemoto.listarPacientes().get(i).getId()==id){
-                 return true;
-            }
-         }
-         return false;
-     }
      
      public IndicadorDTO iniciarSeguimiento(int id) {
             inidicador = new IndicadorDTO(0,0,0,id);

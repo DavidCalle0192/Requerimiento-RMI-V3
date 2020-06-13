@@ -40,9 +40,10 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
     @Override
     public synchronized String registrarPaciente(UsuarioDTO objPaciente) throws RemoteException {
         System.out.println("Ejecutando registrarPaciente...");
-        String respuesta = "";
         
-        if(!pacienteRegistrado(objPaciente)){
+        String respuesta = "";
+    
+            if(!pacienteRegistrado(objPaciente)){
             if(pacientes.size()<MAX_PACIENTES){
                 if(pacientes.add(objPaciente)){
                     System.out.println("Paciente nuevo:");
@@ -51,17 +52,19 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
                     System.out.println("Direccion:"+objPaciente.getDireccion());
                     System.out.println("Creando historial...");
                     crearHistorialPaciente(objPaciente.getId());
-                    respuesta = "Se registro el paciente";
+                    respuesta = "registrado";
                 }else{
-                    respuesta = "Error al registrar paciente";
+                    respuesta = "Error";
                 }
             }else{
-                respuesta = "No se pueden registrar mas pacientes";
+                respuesta = "Limite_superado";
             }
         }else{
-            respuesta = "El paciente con id "+objPaciente.getId()+" ya se encuentra registrado";
+            respuesta = "id_existente";
         }
         System.out.println(respuesta);
+        
+        
         return respuesta;
     }
     
@@ -197,10 +200,11 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
     }
 
     @Override
-    public ArrayList<UsuarioDTO> listarPacientes() throws RemoteException {
+    public int numeroRegistros() throws RemoteException {
         
-        return pacientes;
+        return pacientes.size();
     }
         
         
+    
 }
