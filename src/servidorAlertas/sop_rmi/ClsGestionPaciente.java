@@ -96,8 +96,6 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
             HistorialDTO objHistorial = new HistorialDTO(LocalDate.now(), LocalTime.now(), puntuacion);
             respuesta = "Se genera alerta";
             
-            //TODO:Crear callback
-            
             //Si el paciente no tiene un historial se procede a crearlo
             if(!HistorialAlertaDAO.existeHistorial(objIndicador.getIdPaciente()))HistorialAlertaDAO.crearHistorial(objIndicador.getIdPaciente());
             
@@ -109,8 +107,16 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
             
             AlertaDTO objAlerta = new AlertaDTO(historial, objIndicador, objPaciente,LocalDate.now(),LocalTime.now(),puntuacion);
             
+            
             try {
                 objRefRemNotificacion.enviarAlerta(objAlerta); 
+            } catch (RemoteException ex) {
+                Logger.getLogger(ClsGestionPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            try {
+                //Callback
+                objPaciente.getObjRemoto().enviarAlarma("Se genero una alerta por el cambio en los signos vitales  del paciente");
             } catch (RemoteException ex) {
                 Logger.getLogger(ClsGestionPaciente.class.getName()).log(Level.SEVERE, null, ex);
             }

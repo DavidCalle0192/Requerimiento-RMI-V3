@@ -5,6 +5,7 @@
  */
 package servidorAlertas.dto;
 
+import clienteHabitacion.sop_rmi.HabitacionInt;
 import java.io.Serializable;
 
 
@@ -19,13 +20,15 @@ public class UsuarioDTO implements Serializable{
     private String nombres;
     private String apellidos;
     private String Direccion;
+    private HabitacionInt objRemoto;
 
-    public UsuarioDTO(int id, String tipo_id, String nombres, String apellidos, String Direccion) {
+    public UsuarioDTO(int id, String tipo_id, String nombres, String apellidos, String Direccion, HabitacionInt objRemoto) {
         this.id = id;
         this.tipo_id = tipo_id;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.Direccion = Direccion;
+        this.objRemoto = objRemoto;
     }
 
     public int getId() {
@@ -67,4 +70,14 @@ public class UsuarioDTO implements Serializable{
     public void setDireccion(String Direccion) {
         this.Direccion = Direccion;
     }
+
+    public HabitacionInt getObjRemoto() {
+        return objRemoto;
+    }
+
+    public void setObjRemoto(HabitacionInt objRemoto) {
+        this.objRemoto = objRemoto;
+    }
+    
+    
 }

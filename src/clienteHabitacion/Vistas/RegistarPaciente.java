@@ -6,6 +6,7 @@
 package clienteHabitacion.Vistas;
 
 import clienteHabitacion.ClienteMedico;
+import clienteHabitacion.sop_rmi.HabitacionInt;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,15 +23,19 @@ public class RegistarPaciente extends javax.swing.JFrame {
 
     public static GestionPacienteInt objRemoto;
     public static ClienteMedico cm;
+    public static HabitacionInt objHabitacion;
+    public static MenuMedico guiMenuMedico;
     int rol = 1;//1-->admin 0-->medico
     // public static UsuarioDTO objUsuario;
 
     /**
      * Creates new form prueba
      */
-    public RegistarPaciente(GestionPacienteInt objRemoto, ClienteMedico cm) {
+    public RegistarPaciente(GestionPacienteInt objRemoto, ClienteMedico cm, HabitacionInt objHabitacion, MenuMedico guiMenuMedico) {
         this.objRemoto = objRemoto;
         this.cm = cm;
+        this.objHabitacion = objHabitacion;
+        this.guiMenuMedico = guiMenuMedico;
         initComponents();
         rbtn_cc.setSelected(true);
     }
@@ -210,7 +215,7 @@ public class RegistarPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Por favor diligenciar todos los campos");
                 
             }else{
-                UsuarioDTO paciente = new UsuarioDTO(id, tipoId, nombres, apellidos, direccion);
+                UsuarioDTO paciente = new UsuarioDTO(id, tipoId, nombres, apellidos, direccion,objHabitacion);
                 String respuesta = objRemoto.registrarPaciente(paciente);
                 if(respuesta.equals("id_existente")){
                 JOptionPane.showMessageDialog(null, "El id ya existe");
@@ -218,15 +223,10 @@ public class RegistarPaciente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Se ha superado el limite de usuarios registrados.");
             }else if(respuesta.equals("registrado")){
                 JOptionPane.showMessageDialog(null, "Se ha registrado el paciente con exito.");
-                MenuMedico menu;
-                if (rol == 1) {
-                    menu = new MenuMedico(objRemoto);
-                } else {
-                    menu = new MenuMedico(objRemoto, cm);
-                }
-                menu.objusuario = paciente;
-                menu.darVisibilidad();
-                menu.setVisible(true);
+                
+                guiMenuMedico.objusuario = paciente;
+                guiMenuMedico.darVisibilidad();
+                guiMenuMedico.setVisible(true);
                 this.setVisible(false);
             }else{
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error.");
