@@ -132,7 +132,6 @@ public class MenuMedico extends javax.swing.JFrame {
         btn_iniciarSeguimiento = new javax.swing.JButton();
         lb_menuMedico = new javax.swing.JLabel();
         btn_paraSeguimiento = new javax.swing.JButton();
-        lblMensaje = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea_seguimiento = new javax.swing.JTextArea();
         btn_limpiar = new javax.swing.JButton();
@@ -163,8 +162,6 @@ public class MenuMedico extends javax.swing.JFrame {
             }
         });
 
-        lblMensaje.setText("jLabel1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,9 +169,6 @@ public class MenuMedico extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblMensaje))
                     .addComponent(lb_menuMedico)
                     .addComponent(btn_registrarPaciente)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -193,9 +187,7 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addComponent(btn_iniciarSeguimiento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_paraSeguimiento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblMensaje)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         txtArea_seguimiento.setColumns(20);
@@ -335,13 +327,15 @@ public class MenuMedico extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuMedico().setVisible(true);
+                
             }
         });
     }
     
     public void mostraMensajeAlerta(String mensaje){
         System.err.println(mensaje);
-        lblMensaje.setText(mensaje);
+        //lblMensaje.setText(mensaje);
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,7 +347,6 @@ public class MenuMedico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb_menuMedico;
-    private javax.swing.JLabel lblMensaje;
     private javax.swing.JTextArea txtArea_seguimiento;
     // End of variables declaration//GEN-END:variables
 }
