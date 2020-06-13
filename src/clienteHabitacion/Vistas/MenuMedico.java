@@ -43,8 +43,7 @@ public class MenuMedico extends javax.swing.JFrame {
         btn_iniciarSeguimiento.setEnabled(false);
         btn_paraSeguimiento.setEnabled(false);
         btn_paraSeguimiento.setVisible(false);
-        btn_listarPacientes.setEnabled(false);
-        btn_listarPacientes.setVisible(false);
+        
     }
     
      public MenuMedico(GestionPacienteInt objRemoto) {
@@ -55,8 +54,6 @@ public class MenuMedico extends javax.swing.JFrame {
         btn_iniciarSeguimiento.setEnabled(false);
         btn_paraSeguimiento.setEnabled(false);
         btn_paraSeguimiento.setVisible(false);
-        btn_listarPacientes.setEnabled(false);
-        btn_listarPacientes.setVisible(false);
         lb_menuMedico.setText("Menú Administrador");
     }
 
@@ -122,7 +119,6 @@ public class MenuMedico extends javax.swing.JFrame {
         btn_iniciarSeguimiento = new javax.swing.JButton();
         lb_menuMedico = new javax.swing.JLabel();
         btn_paraSeguimiento = new javax.swing.JButton();
-        btn_listarPacientes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea_seguimiento = new javax.swing.JTextArea();
         btn_limpiar = new javax.swing.JButton();
@@ -153,13 +149,6 @@ public class MenuMedico extends javax.swing.JFrame {
             }
         });
 
-        btn_listarPacientes.setText("Listar Pacientes");
-        btn_listarPacientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_listarPacientesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -168,14 +157,11 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_menuMedico)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_registrarPaciente)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_listarPacientes))
+                    .addComponent(btn_registrarPaciente)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btn_iniciarSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_paraSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap(302, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +169,7 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lb_menuMedico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_registrarPaciente)
-                    .addComponent(btn_listarPacientes))
+                .addComponent(btn_registrarPaciente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_iniciarSeguimiento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -255,7 +239,7 @@ public class MenuMedico extends javax.swing.JFrame {
 
         aux=1;
         try {
-            if (objRemoto.listarPacientes().size() == objRemoto.obtenerMaxPacientes()) {
+            if (objRemoto.numeroRegistros() == objRemoto.obtenerMaxPacientes()) {
                 JOptionPane.showMessageDialog(null, "Limite de registros alcanzados");
             } else {
                 RegistarPaciente rp = new RegistarPaciente(objRemoto, cm);
@@ -290,32 +274,7 @@ public class MenuMedico extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_iniciarSeguimientoActionPerformed
-
-    private void btn_listarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_listarPacientesActionPerformed
-        try {
-            // TODO add your handling code here:
-            txtArea_seguimiento.setText("");
-            String texto = "";
-            bandera=1;
-            for (int i = 0; i < objRemoto.listarPacientes().size(); i++) {
-                int id = objRemoto.listarPacientes().get(i).getId();
-                String tipoId = objRemoto.listarPacientes().get(i).getTipo_id();
-                String nombres = objRemoto.listarPacientes().get(i).getNombres();
-                String apellidos = objRemoto.listarPacientes().get(i).getApellidos();
-                String direccion = objRemoto.listarPacientes().get(i).getDireccion();
-                
-                texto = texto +
-                        "ID: " + id+
-                        "\nNombres: "+ nombres+
-                        "\nApellidos: " + apellidos+
-                        "\ndireccion"+ direccion + "\n\n";
-            }
-            txtArea_seguimiento.setText(texto);
-        } catch (RemoteException ex) {
-            Logger.getLogger(MenuMedico.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btn_listarPacientesActionPerformed
-
+/**/
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
         // TODO add your handling code here:
         bandera=1;
@@ -361,7 +320,6 @@ public class MenuMedico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_iniciarSeguimiento;
     private javax.swing.JButton btn_limpiar;
-    private javax.swing.JButton btn_listarPacientes;
     private javax.swing.JButton btn_paraSeguimiento;
     private javax.swing.JButton btn_registrarPaciente;
     private javax.swing.JButton btn_salir;

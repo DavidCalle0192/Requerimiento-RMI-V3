@@ -200,9 +200,9 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
     }
 
     @Override
-    public ArrayList<UsuarioDTO> listarPacientes() throws RemoteException {
+    public int numeroRegistros() throws RemoteException {
         
-        return pacientes;
+        return pacientes.size();
     }
         
         
