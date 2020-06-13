@@ -291,8 +291,8 @@ public class VistaNotificaciones extends javax.swing.JFrame {
         modelInd.addRow(new Object[]{"Temperatura",objAlertaDTO.getIndicadores().getTemperatura()});
         
         
-        if(objAlertaDTO.getPuntuacion()==2)lbl1.setText("Se debe visitar al paciente");
-        if(objAlertaDTO.getPuntuacion()==3)lbl1.setText("Se debe remitir al paciente al hospital");
+        if(objAlertaDTO.getPuntuacion()==2)lblMensaje.setText("Se debe visitar al paciente");
+        if(objAlertaDTO.getPuntuacion()==3)lblMensaje.setText("Se debe remitir al paciente al hospital");
         
         DefaultTableModel modelHis = (DefaultTableModel)tblHistorial.getModel();
         modelHis.setRowCount(0);
