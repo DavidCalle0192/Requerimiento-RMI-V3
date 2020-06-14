@@ -119,7 +119,7 @@ public class MenuMedico extends javax.swing.JFrame {
             }
 
         };
-        timer.schedule(task, 0, 3000);//se cambio la variacion del tiempo para pruebas
+        timer.schedule(task, 0, 8000);//se cambio la variacion del tiempo para pruebas
 
     }
 
