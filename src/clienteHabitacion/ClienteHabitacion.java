@@ -17,7 +17,7 @@ import servidorAlertas.sop_rmi.GestionPacienteInt;
  *
  * @author usuario
  */
-public class Establecer_conexion extends javax.swing.JFrame {
+public class ClienteHabitacion extends javax.swing.JFrame {
 
     public static GestionPacienteInt objRemoto;
 
@@ -25,7 +25,7 @@ public class Establecer_conexion extends javax.swing.JFrame {
      * Creates new form IniciarSesion
      */
     //variables de conexión
-    public Establecer_conexion() {
+    public ClienteHabitacion() {
         initComponents();
         setLocationRelativeTo(null);
 
@@ -156,7 +156,7 @@ public class Establecer_conexion extends javax.swing.JFrame {
                 this.setVisible(false);
             }
         } catch (RemoteException ex) {
-            Logger.getLogger(Establecer_conexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteHabitacion.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_Button_establecer_conexionActionPerformed
@@ -183,14 +183,18 @@ public class Establecer_conexion extends javax.swing.JFrame {
              }
              }*/
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Establecer_conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteHabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Establecer_conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteHabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Establecer_conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteHabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Establecer_conexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteHabitacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -199,7 +203,7 @@ public class Establecer_conexion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Establecer_conexion().setVisible(true);
+                new ClienteHabitacion().setVisible(true);
             }
         });
     }
