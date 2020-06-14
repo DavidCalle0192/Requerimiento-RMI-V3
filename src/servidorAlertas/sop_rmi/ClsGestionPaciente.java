@@ -43,7 +43,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
     
     @Override
     public synchronized String registrarPaciente(UsuarioDTO objPaciente) throws RemoteException {
-        log("Ejecutando registrarPaciente...");
+        log("\nEjecutando registrarPaciente...");
         String respuesta = "";
     
             if(!pacienteRegistrado(objPaciente)){
@@ -86,7 +86,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public String enviarIndicadores(IndicadorDTO objIndicador){
-        log("Ejecutando enviarIndicadores...");
+        log("\nEjecutando enviarIndicadores...");
         String respuesta = "";
         
         int puntuacion = obtenerPuntuacion(objIndicador);
@@ -153,7 +153,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public synchronized boolean establecerMaxPacientes(int num) throws RemoteException {
-        log("Ejecutando establecerMaxPacientes...");
+        log("\nEjecutando establecerMaxPacientes...");
         if(num>=1 && num<=5){
             this.MAX_PACIENTES = num;
             return true;
@@ -165,7 +165,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public int obtenerMaxPacientes() throws RemoteException {
-        log("Ejecutando obtenerMaxPacientes...");
+        log("\nEjecutando obtenerMaxPacientes...");
         return this.MAX_PACIENTES;
     }
     
@@ -211,7 +211,7 @@ public class ClsGestionPaciente extends UnicastRemoteObject implements GestionPa
 
     @Override
     public int numeroRegistros() throws RemoteException {
-        log("Ejecutando numeroRegistros...");
+        log("\nEjecutando numeroRegistros...");
         return pacientes.size();
     }
     
