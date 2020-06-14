@@ -34,7 +34,6 @@ public class MenuMedico extends javax.swing.JFrame {
     int rol;
     UsuarioDTO objusuario;
    
-    
     /**
      * Creates new form MenuMedico
      */
@@ -42,6 +41,7 @@ public class MenuMedico extends javax.swing.JFrame {
         this.objRemoto = objRemoto;
         this.cm = cm;
         rol = 0;
+        
         try {
             this.objHabitacion = new ClsHabitacion(this);
         } catch (RemoteException ex) {
@@ -74,6 +74,11 @@ public class MenuMedico extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void cargarInfoUusuario(){
+        lb_nombre_apellido.setText("Nombre: "+objusuario.getNombres()+" "+objusuario.getApellidos());
+        lb_tipo_id.setText("Tipo ID: "+objusuario.getTipo_id());
+        lb_direccion.setText("Dirección: "+objusuario.getDireccion());
+    }
     public void darVisibilidad(){
         btn_registrarPaciente.setEnabled(false);
         btn_registrarPaciente.setVisible(false);
@@ -132,6 +137,9 @@ public class MenuMedico extends javax.swing.JFrame {
         btn_iniciarSeguimiento = new javax.swing.JButton();
         lb_menuMedico = new javax.swing.JLabel();
         btn_paraSeguimiento = new javax.swing.JButton();
+        lb_nombre_apellido = new javax.swing.JLabel();
+        lb_tipo_id = new javax.swing.JLabel();
+        lb_direccion = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea_seguimiento = new javax.swing.JTextArea();
         btn_limpiar = new javax.swing.JButton();
@@ -140,6 +148,7 @@ public class MenuMedico extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btn_registrarPaciente.setText("Registrar paciente");
+        btn_registrarPaciente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_registrarPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarPacienteActionPerformed(evt);
@@ -147,6 +156,7 @@ public class MenuMedico extends javax.swing.JFrame {
         });
 
         btn_iniciarSeguimiento.setText("Iniciar seguimiento");
+        btn_iniciarSeguimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_iniciarSeguimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_iniciarSeguimientoActionPerformed(evt);
@@ -156,6 +166,7 @@ public class MenuMedico extends javax.swing.JFrame {
         lb_menuMedico.setText("Menú Médico");
 
         btn_paraSeguimiento.setText("Parar Seguimiento");
+        btn_paraSeguimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_paraSeguimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_paraSeguimientoActionPerformed(evt);
@@ -170,31 +181,45 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_menuMedico)
-                    .addComponent(btn_registrarPaciente)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btn_iniciarSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_paraSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(302, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btn_paraSeguimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_iniciarSeguimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                        .addComponent(btn_registrarPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lb_nombre_apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                    .addComponent(lb_tipo_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lb_direccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lb_menuMedico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_registrarPaciente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_iniciarSeguimiento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_paraSeguimiento)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lb_menuMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_registrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_iniciarSeguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lb_nombre_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb_tipo_id, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lb_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_paraSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         txtArea_seguimiento.setColumns(20);
         txtArea_seguimiento.setRows(5);
+        txtArea_seguimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane1.setViewportView(txtArea_seguimiento);
 
         btn_limpiar.setText("Limpiar");
+        btn_limpiar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_limpiarActionPerformed(evt);
@@ -202,6 +227,7 @@ public class MenuMedico extends javax.swing.JFrame {
         });
 
         btn_salir.setText("Salir");
+        btn_salir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_salirActionPerformed(evt);
@@ -219,12 +245,12 @@ public class MenuMedico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_limpiar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                                .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,9 +261,9 @@ public class MenuMedico extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_limpiar)
-                    .addComponent(btn_salir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -250,13 +276,14 @@ public class MenuMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_salirActionPerformed
 
     private void btn_registrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarPacienteActionPerformed
-
+        
         aux=1;
         try {
             if (objRemoto.numeroRegistros() == objRemoto.obtenerMaxPacientes()) {
                 JOptionPane.showMessageDialog(null, "Limite de registros alcanzados");
             } else {
                 RegistarPaciente rp = new RegistarPaciente(objRemoto, cm, objHabitacion, this);
+                
                 if(rol==0){
                     rp.rol = 0;
                 }
@@ -268,6 +295,7 @@ public class MenuMedico extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(MenuMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }//GEN-LAST:event_btn_registrarPacienteActionPerformed
 
     private void btn_paraSeguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_paraSeguimientoActionPerformed
@@ -347,7 +375,10 @@ public class MenuMedico extends javax.swing.JFrame {
     private javax.swing.JButton btn_salir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lb_direccion;
     private javax.swing.JLabel lb_menuMedico;
+    private javax.swing.JLabel lb_nombre_apellido;
+    private javax.swing.JLabel lb_tipo_id;
     private javax.swing.JTextArea txtArea_seguimiento;
     // End of variables declaration//GEN-END:variables
 }

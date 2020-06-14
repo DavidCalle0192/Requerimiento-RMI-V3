@@ -114,8 +114,8 @@ public class vista1_administrador extends javax.swing.JFrame {
         } else {
             if (esNumerico(aux)) {
                 int cantRegistros = Integer.parseInt(txf_numMaxReg.getText());
-                if (cantRegistros < 0 || cantRegistros > 5) {
-                    JOptionPane.showMessageDialog(null, "El valor debe ser entre 0 y 5");
+                if (cantRegistros < 1 || cantRegistros > 5) {
+                    JOptionPane.showMessageDialog(null, "El valor debe ser entre 1 y 5");
                     txf_numMaxReg.setText("");
                 } else {
                     try {
@@ -135,7 +135,7 @@ public class vista1_administrador extends javax.swing.JFrame {
                 }
 
             } else {
-                JOptionPane.showMessageDialog(null, "El valor ingresado no es númerico");
+                JOptionPane.showMessageDialog(null, "El valor ingresado es negativo o no es númerico");
                 txf_numMaxReg.setText("");
             }
         }

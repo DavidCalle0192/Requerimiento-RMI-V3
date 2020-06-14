@@ -189,9 +189,13 @@ public class RegistarPaciente extends javax.swing.JFrame {
             int id;
             if(!txf_id.getText().equals("")){
                 id = Integer.parseInt(txf_id.getText());
+                if(id<0){
+                    JOptionPane.showMessageDialog(null, "Por favor ingrese un numero positivo.");
+                    id=-1;
+                }
             }else{
                 id=-1;//Con el valor de -1 se especifica al sistema que el campo esta vacio
-                //JOptionPane.showMessageDialog(null, "holis");
+                
             }
             
             //String tipoId = txf_tipoId.getText();
@@ -226,6 +230,11 @@ public class RegistarPaciente extends javax.swing.JFrame {
                 
                 guiMenuMedico.objusuario = paciente;
                 guiMenuMedico.darVisibilidad();
+                guiMenuMedico.objusuario.setNombres(paciente.getNombres());
+                guiMenuMedico.objusuario.setApellidos(paciente.getApellidos());
+                guiMenuMedico.objusuario.setTipo_id(paciente.getTipo_id());
+                guiMenuMedico.objusuario.setDireccion(paciente.getDireccion());
+                guiMenuMedico.cargarInfoUusuario();
                 guiMenuMedico.setVisible(true);
                 this.setVisible(false);
             }else{
